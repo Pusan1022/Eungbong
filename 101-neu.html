@@ -133,6 +133,7 @@ align-items:center;justify-content:center;padding:16px;cursor:pointer}
 .addr{background:#3E3833;color:#fff;border-radius:12px;padding:20px;margin:18px 0}
 .addr-lab{font-size:10.5px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:11px;font-weight:600}
 .addr-ko{font-size:19px;font-weight:700;line-height:1.5;margin-bottom:8px;color:#fff}
+.addr-warn{background:#C0392B;color:#fff;font-size:14px;font-weight:800;border-radius:7px;padding:8px 11px;margin:2px 0 10px;display:inline-block;letter-spacing:.2px}
 .addr-en{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:16px;line-height:1.55}
 .copy-btn{background:#fff;color:var(--secondary);border:none;padding:13px;border-radius:9px;
 font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:7px;width:100%;justify-content:center}
@@ -314,6 +315,7 @@ display:flex;gap:11px;align-items:flex-start}
     <div class="addr">
       <div class="addr-lab" id="taxiLab"></div>
       <div class="addr-ko" id="taxiKo"></div>
+      <div class="addr-warn" id="taxiWarn"></div>
       <div class="addr-en" id="taxiEn"></div>
       <button class="copy-btn" onclick="copyAddr(this)"><span class="i18n-copy"></span></button>
     </div>
@@ -342,7 +344,7 @@ ko:{flag:'🇰🇷',name:'한국어',
  startTitle:'공항에 도착하셨나요?',enNote:'',startSub:'언어를 선택하신 뒤 시작해주세요',
  startBtn:'길찾기 시작하기',checkinBtn:'이미 도착했어요 — 문 여는 방법',addrLabel:'주소',
  startTip:'공항 밖에서는 인터넷이 끊길 수 있어요. 이 페이지를 미리 열어두거나 화면을 캡처해두세요.',
- help:'도움',back:'뒤로',change:'방법 변경',copy:'주소 복사하기',map:'지도에서 위치 보기',openMap:'지도에서 위치 보기',
+ help:'도움',back:'뒤로',change:'방법 변경',copy:'주소 복사하기',notDagil:'⚠ 59다길 아님 · 59가길 입니다',map:'지도에서 위치 보기',openMap:'지도에서 위치 보기',
  mTitle:'어떻게 오시겠어요?',mDesc:'상황에 맞는 방법을 선택하세요',
  timeWarn:'<b>지금은 늦은 시간입니다.</b> 운행이 끝난 방법은 흐리게 표시됩니다. 택시를 이용하세요.',
  step:'단계',prev:'이전',next:'다음 →',fin:'✓ 도착했어요!',
@@ -362,7 +364,7 @@ en:{flag:'🇺🇸',name:'English',
  startTitle:'Just landed at the airport?',enNote:'',startSub:'Choose your language, then tap Start',
  startBtn:'Start navigation',checkinBtn:'Already here — how to get in',addrLabel:'ADDRESS',
  startTip:'You may lose internet outside the airport. Keep this page open or take screenshots now.',
- help:'Help',back:'Back',change:'Change route',copy:'Copy address',map:'Open location in maps',openMap:'Open in map',
+ help:'Help',back:'Back',change:'Change route',copy:'Copy address',notDagil:'⚠ NOT 59da-gil — it is 59GA-gil',map:'Open location in maps',openMap:'Open in map',
  mTitle:'How would you like to come?',mDesc:'Pick the option that suits you',
  timeWarn:'<b>It is late now.</b> Options that have stopped running are dimmed. Please take a taxi.',
  step:'Step',prev:'Back',next:'Next →',fin:'✓ I have arrived!',
@@ -382,7 +384,7 @@ zh:{flag:'🇨🇳',name:'中文',
  startTitle:'刚到机场了吗？',enNote:'',startSub:'请选择语言后开始',
  startBtn:'开始导航',checkinBtn:'已经到了 — 如何开门',addrLabel:'地址',
  startTip:'出了机场可能会断网。请先打开此页面或截屏保存。',
- help:'帮助',back:'返回',change:'更换路线',copy:'复制地址',map:'在地图上查看位置',openMap:'在地图上查看',
+ help:'帮助',back:'返回',change:'更换路线',copy:'复制地址',notDagil:'⚠ 不是 59다길 · 是 59가길',map:'在地图上查看位置',openMap:'在地图上查看',
  mTitle:'您打算怎么过来？',mDesc:'请选择适合您的方式',
  timeWarn:'<b>现在时间已晚。</b> 已停运的方式显示为灰色，请乘坐出租车。',
  step:'步骤',prev:'上一步',next:'下一步 →',fin:'✓ 我到了！',
@@ -402,7 +404,7 @@ ja:{flag:'🇯🇵',name:'日本語',
  startTitle:'空港に到着しましたか？',enNote:'',startSub:'言語を選んでから開始してください',
  startBtn:'ナビを始める',checkinBtn:'もう着きました — 開け方',addrLabel:'住所',
  startTip:'空港を出るとネットが切れることがあります。このページを開いたままにするか、スクリーンショットを撮っておいてください。',
- help:'ヘルプ',back:'戻る',change:'ルート変更',copy:'住所をコピー',map:'地図で場所を見る',openMap:'地図で見る',
+ help:'ヘルプ',back:'戻る',change:'ルート変更',copy:'住所をコピー',notDagil:'⚠ 59다길ではなく 59가길 です',map:'地図で場所を見る',openMap:'地図で見る',
  mTitle:'どの方法で来られますか？',mDesc:'ご都合に合う方法をお選びください',
  timeWarn:'<b>現在は遅い時間です。</b> 運行が終了した方法は薄く表示されます。タクシーをご利用ください。',
  step:'ステップ',prev:'戻る',next:'次へ →',fin:'✓ 到着しました！',
@@ -868,6 +870,7 @@ function paint(){
   document.getElementById('hcMe').textContent=T('hcMe');
   document.getElementById('taxiLab').textContent=T('taxiLab');
   document.getElementById('taxiKo').textContent=d.address;
+  var tw=document.getElementById('taxiWarn'); if(tw) tw.textContent=T('notDagil');
   document.getElementById('taxiEn').textContent=d.addressEn;
   
   document.getElementById('pw1Lab').textContent=T('pw1');
@@ -962,6 +965,7 @@ function render(){
   if(s.showAddress){
     h+='<div class="addr"><div class="addr-lab">'+T('showDriver')+'</div>';
     h+='<div class="addr-ko">'+esc(APP_DATA.address)+'</div>';
+    h+='<div class="addr-warn">'+T('notDagil')+'</div>';
     h+='<div class="addr-en">'+esc(APP_DATA.addressEn)+'</div>';
     h+='<button class="copy-btn" onclick="copyAddr(this)"><span>'+T('copy')+'</span></button></div>';
     
@@ -1015,7 +1019,8 @@ function playV(el,src,watch){
     if(fb) fb.style.display='block';
   },5000);
 }
-function copyAddr(b){ var a=APP_DATA.address+'\n'+APP_DATA.addressEn;
+function stripUnit(s){ return String(s||'').replace(/\s*\d+\s*호\s*$/,'').replace(/\s*\(#\s*\d+\s*\)\s*$/,'').trim(); }
+function copyAddr(b){ var a=stripUnit(APP_DATA.address)+'\n'+stripUnit(APP_DATA.addressEn);
   navigator.clipboard.writeText(a).then(function(){ b.classList.add('done');
     var o=b.innerHTML; b.innerHTML='<span>'+T('copied')+'</span>';
     setTimeout(function(){ b.classList.remove('done'); b.innerHTML=o; },2000); }); }
